@@ -98,7 +98,7 @@ class Revslider_Search_Replace extends WP_CLI_Command {
 			foreach ( $blogs as $keys => $blog ) {
 				$blog_id = $blogs[ $keys ]['blog_id'];
 				switch_to_blog( $blog_id );
-				WP_CLI::success( "Switched to blog " . get_option( 'home' ) );
+				WP_CLI::success( "Switched to the blog " . get_option( 'home' ) );
 				$this->set_id_and_replace( $id, $data );
 				restore_current_blog();
 			}
@@ -126,7 +126,7 @@ class Revslider_Search_Replace extends WP_CLI_Command {
 	public function replace_revslider_urls( $data ) {
 
 		$this->slider->replaceImageUrlsFromData( $data );
-		WP_CLI::success( "Search Replace complete for slider id : " . $data['sliderid'] );
+		WP_CLI::success( "Search Replace complete for slider with id : " . $data['sliderid'] );
 
 	}
 
