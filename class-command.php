@@ -68,7 +68,7 @@ class Revslider_Search_Replace extends WP_CLI_Command {
 
 		if ( $network == true ) {
 			$blogs = wp_get_sites();
-			foreach ($blogs as $keys => $blog) {
+			foreach ( $blogs as $keys => $blog ) {
 				$blog_id = $blogs[ $keys ]['blog_id'];
 				switch_to_blog( $blog_id );
 				WP_CLI::success( "Switched to blog " . get_option( 'home' ) );
