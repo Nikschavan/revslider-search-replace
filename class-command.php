@@ -6,6 +6,8 @@ class Revslider_Search_Replace extends WP_CLI_Command {
 
 	public function __invoke( $args, $assoc_args ) {
 
+		$network = false;
+
 		if ( ! class_exists( 'RevSliderSlider' ) ) {
 			WP_CLI::error( "Revolution slider is not active" );
 
@@ -35,6 +37,10 @@ class Revslider_Search_Replace extends WP_CLI_Command {
 		$source      = $args[1];
 		$destination = $args[2];
 
+		if ( isset( $assoc_args['network'] ) && $assoc_args['network'] == true && is_multisite() ) {
+			$network = true;
+		}
+
 		if ( $id == "" ) {
 			WP_CLI::error( "Plese enter ID of the slider which you want to search-replace into or 'all' to select all the sliders" );
 
@@ -60,7 +66,18 @@ class Revslider_Search_Replace extends WP_CLI_Command {
 
 		$this->slider = new RevSliderSlider();
 
-		$this->set_id_and_replace( $id, $data );
+		if ( $network == true ) {
+			$blogs = wp_get_sites();
+			foreach ($blogs as $keys => $blog) {
+				$blog_id = $blogs[ $keys ]['blog_id'];
+				switch_to_blog( $blog_id );
+				WP_CLI::success( "Switched to blog " . get_option( 'home' ) );
+				$this->set_id_and_replace( $id, $data );
+				restore_current_blog();
+			}
+		} else {
+			$this->set_id_and_replace( $id, $data );
+		}
 
 	}
 
@@ -82,7 +99,7 @@ class Revslider_Search_Replace extends WP_CLI_Command {
 	public function replace_revslider_urls( $data ) {
 
 		$this->slider->replaceImageUrlsFromData( $data );
-		WP_CLI::success( "strings replaced for slider : " . $data['sliderid'] );
+		WP_CLI::success( "Search Replace complete for slider id : " . $data['sliderid'] );
 
 	}
 
