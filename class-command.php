@@ -54,32 +54,35 @@ class Revslider_Search_Replace extends WP_CLI_Command {
 		}
 
 		$data = array(
-			'sliderid' => $id,
 			'url_from' => $source,
 			'url_to'   => $destination
 		);
 
 		$this->slider = new RevSliderSlider();
-		$this->replace_revslider_urls( $data );
+
+		$this->set_id_and_replace( $id, $data );
+
+	}
+
+	public function set_id_and_replace( $id, $data ) {
+
+		if ( $id == 'all' ) {
+			$arrSliders = $this->slider->getArrSliders();
+			foreach ( $arrSliders as $key => $value ) {
+				$data["sliderid"] = $value->getID();
+				$this->replace_revslider_urls( $data );
+			}
+		} else {
+			$data["sliderid"] = $id;
+			$this->replace_revslider_urls( $data );
+		}
+
 	}
 
 	public function replace_revslider_urls( $data ) {
 
-		$id = $data["sliderid"];
-
-		if ( $id == "all" ) {
-			$arrSliders = $this->slider->getArrSliders();
-
-			foreach ( $arrSliders as $key => $value ) {
-				$id               = $value->getID();
-				$data["sliderid"] = $id;
-				$this->slider->replaceImageUrlsFromData( $data );
-				WP_CLI::success( "strings replaced for slider : " . $id );
-			}
-		} else {
-			$this->slider->replaceImageUrlsFromData( $data );
-			WP_CLI::success( "strings replaced for slider : " . $id );
-		}
+		$this->slider->replaceImageUrlsFromData( $data );
+		WP_CLI::success( "strings replaced for slider : " . $data['sliderid'] );
 
 	}
 
