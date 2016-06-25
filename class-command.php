@@ -35,6 +35,24 @@ class Revslider_Search_Replace extends WP_CLI_Command {
 		$source      = $args[1];
 		$destination = $args[2];
 
+		if ( $id == "" ) {
+			WP_CLI::error( "Plese enter ID of the slider which you want to search-replace into or 'all' to select all the sliders" );
+
+			return false;
+		}
+
+		if ( $source == "" ) {
+			WP_CLI::error( "Please enter source URL" );
+
+			return false;
+		}
+
+		if ( $destination == "" ) {
+			WP_CLI::error( "Please enter destination URL" );
+
+			return false;
+		}
+
 		$data = array(
 			'sliderid' => $id,
 			'url_from' => $source,
