@@ -2,7 +2,7 @@
 
 class Revslider_Search_Replace extends WP_CLI_Command {
 	/**
-	 * Clean up unused, orphaned and duplicated data in your WordPress
+	 * WP CLI Command to search replace the website URLs in the Revolution sliders
 	 *
 	 * ## OPTIONS
 	 *
