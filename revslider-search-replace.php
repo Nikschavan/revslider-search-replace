@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Revolution Slider Search Replace CLI
-Version: 0.2
+Version: 0.3
 Description: WP CLI Command to Search Replace Strings in revolution slider
 Author: Nikhil Chavan
 Author URI: http://www.nikhilchavan.com
