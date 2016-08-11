@@ -94,8 +94,20 @@ class Revslider_Search_Replace extends WP_CLI_Command {
 		$this->slider = new RevSliderSlider();
 
 		if ( $network == true ) {
-			$blogs = wp_get_sites();
+			
+			if ( function_exists( 'get_sites' ) ) {
+				$blogs = get_sites();
+			} else {
+				$blogs = wp_get_sites();
+			}
+
 			foreach ( $blogs as $keys => $blog ) {
+
+				// Cast $blog as an array instead of WP_Site object
+				if ( is_object( $blog ) ) {
+					$blog = (array) $blog;
+				}
+
 				$blog_id = $blogs[ $keys ]['blog_id'];
 				switch_to_blog( $blog_id );
 				WP_CLI::success( "Switched to the blog " . get_option( 'home' ) );
