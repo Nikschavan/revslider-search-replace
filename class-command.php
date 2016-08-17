@@ -108,7 +108,7 @@ class Revslider_Search_Replace extends WP_CLI_Command {
 					$blog = (array) $blog;
 				}
 
-				$blog_id = $blogs[ $keys ]['blog_id'];
+				$blog_id = $blog['blog_id'];
 				switch_to_blog( $blog_id );
 				WP_CLI::success( "Switched to the blog " . get_option( 'home' ) );
 				$this->set_id_and_replace( $id, $data );
