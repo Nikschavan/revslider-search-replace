@@ -1,6 +1,7 @@
 {
 	"name": "Nikschavan/revslider-search-replace",
 	"description": "WP CLI Command to Search Replace Strings in revolution slider",
+	"type": "wp-cli-package",
 	"homepage": "https://github.com/Nikschavan/revslider-search-replace",
 	"license": "MIT",
 	"require": {
