@@ -1,5 +1,10 @@
 <?php
 
+// Only run through WP CLI.
+if ( ! defined( 'WP_CLI' ) ) {
+	return;
+}
+
 class Revslider_Search_Replace extends WP_CLI_Command {
 	/**
 	 * WP CLI Command to search replace the website URLs in the Revolution sliders
